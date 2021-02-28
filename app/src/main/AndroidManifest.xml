@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.inquiryhome">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.InquiryHome">
+        <activity
+            android:name=".view.ExploreDoctorAtivity"
+            android:label="@string/title_activity_explore_doctor_ativity"
+            android:theme="@style/Theme.InquiryHome.NoActionBar"></activity>
+        <activity
+            android:name=".view.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/Theme.InquiryHome.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.InquiryHome.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.PatientRegisterActivity"
+            android:label="@string/title_activity_patient_register"
+            android:theme="@style/Theme.InquiryHome.NoActionBar" />
+        <activity
+            android:name=".view.DoctorRegisterActivity"
+            android:label="@string/title_activity_doctor_register"
+            android:theme="@style/Theme.InquiryHome.NoActionBar" />
+    </application>
+
+</manifest>

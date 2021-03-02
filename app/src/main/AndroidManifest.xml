@@ -15,9 +15,11 @@
         <activity
             android:name=".view.ExploreDoctorAtivity"
             android:label="@string/title_activity_explore_doctor_ativity"
-            android:theme="@style/Theme.InquiryHome.NoActionBar"></activity>
+            android:theme="@style/Theme.InquiryHome.NoActionBar">
+
+        </activity>
         <activity
-            android:name=".view.HomeActivity"
+            android:name=".view.HomePatientActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.InquiryHome.NoActionBar">
 

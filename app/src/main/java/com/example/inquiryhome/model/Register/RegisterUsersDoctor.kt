@@ -1,13 +1,16 @@
 package com.example.inquiryhome.model
 
+import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.util.Log
+import androidx.fragment.app.FragmentManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class RegisterUsers {
+class RegisterUsersDoctor(private val fragmentManager: FragmentManager) {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var reference: DatabaseReference
@@ -18,7 +21,7 @@ class RegisterUsers {
     private var Speciality:String = ""
     private var Squatur:String = ""
 
-    fun Register(doctor: UserDoctor){
+    fun RegisterDoctor(context: Context, doctor: UserDoctor){
 
         auth = FirebaseAuth.getInstance()
         reference = FirebaseDatabase.getInstance().reference
@@ -41,18 +44,22 @@ class RegisterUsers {
                     reference.child("users").child(id).setValue(hashMap).addOnCompleteListener(){ task ->
                         if(task.isSuccessful){
                             Log.e(TAG, "Todo bien")
-
+                            Utilss.GoHome(context = context)
 
                         }
                     }
                         .addOnFailureListener { e ->
                             Log.e(TAG, "Errorr $e")
+                            var dialog = DialogManager("$e")
+                            dialog.show(fragmentManager, ContentValues.TAG)
                         }
                 }
 
             }
                 .addOnFailureListener { e ->
                     Log.e(TAG, "Error $e")
+                    var dialog = DialogManager("$e")
+                    dialog.show(fragmentManager, ContentValues.TAG)
                 }
     }
 }

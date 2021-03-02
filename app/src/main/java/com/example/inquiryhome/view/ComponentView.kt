@@ -1,31 +1,28 @@
 package com.example.inquiryhome.view
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.inquiryhome.model.RegisterUsers
+import androidx.fragment.app.FragmentManager
+import com.example.inquiryhome.model.DialogManager
+import com.example.inquiryhome.model.Register.RegisterUsersPatient
+import com.example.inquiryhome.model.RegisterUsersDoctor
 import com.example.inquiryhome.model.UserDoctor
-import com.example.inquiryhome.model.Utilss.GoHome
+import com.example.inquiryhome.model.UserPacient
 import com.example.inquiryhome.model.Utilss.GoRegisterDoctor
 import com.example.inquiryhome.model.Utilss.GoRegisterPatient
 import com.example.inquiryhome.view.Components.ic_data
@@ -70,7 +67,7 @@ val buttonShape = RoundedCornerShape(25.dp)
     }
 
     @Composable
-    fun FormDoctor(context: Context){
+    fun FormDoctor(fragmentManager: FragmentManager, context: Context){
         var Name = remember { mutableStateOf("") }
         var Last_Name = remember { mutableStateOf("") }
         var Email = remember { mutableStateOf("") }
@@ -89,7 +86,8 @@ val buttonShape = RoundedCornerShape(25.dp)
                         .preferredHeight(120.dp)
                         .preferredWidth(120.dp))}
                     OutlinedTextField(
-                        value = Name.value, onValueChange = { Name.value = it },
+                        value = Name.value,
+                            onValueChange = { Name.value = it },
                         inactiveColor = MaterialTheme.colors.primary,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -106,7 +104,8 @@ val buttonShape = RoundedCornerShape(25.dp)
                         placeholder = { Text(text = "Last Name") },
                         leadingIcon = { Icon(vectorResource(ic_data)) }
                     )
-                    OutlinedTextField(value = Email.value, onValueChange = { Email.value = it },
+                    OutlinedTextField(value = Email.value,
+                            onValueChange = { Email.value = it },
                         inactiveColor = MaterialTheme.colors.primary,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -123,15 +122,17 @@ val buttonShape = RoundedCornerShape(25.dp)
                         placeholder = { Text(text = "Speciality") },
                         leadingIcon = { Icon(vectorResource(ic_data)) }
                     )
-                    OutlinedTextField(value = Birth.value, onValueChange = { Birth.value = it },
+                    OutlinedTextField(value = Birth.value,
+                            onValueChange = { Birth.value = it },
                         inactiveColor = MaterialTheme.colors.primary,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 10.dp),
-                        placeholder = { Text(text = "Birth 00-00-0000") },
+                        placeholder = { Text(text = "Birth 25-10-2000") },
                         leadingIcon = { Icon(vectorResource(ic_date)) }
                     )
-                    OutlinedTextField(value = Squatur.value, onValueChange = { Squatur.value = it },
+                    OutlinedTextField(value = Squatur.value,
+                            onValueChange = { Squatur.value = it },
                         inactiveColor = MaterialTheme.colors.primary,
                         modifier = Modifier
                             .fillMaxWidth()
@@ -142,22 +143,24 @@ val buttonShape = RoundedCornerShape(25.dp)
                     Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Bottom) {
                         Button(
                             onClick = {
-                                /*if(Name.value.toString().isNullOrEmpty() || Last_Name.value.toString().isNullOrEmpty()
+                                if(Name.value.toString().isNullOrEmpty() || Last_Name.value.toString().isNullOrEmpty()
                                         || Email.value.toString().isNullOrEmpty() || Birth.value.toString().isNullOrEmpty()
                                         || Speciality.value.toString().isNullOrEmpty() || Squatur.value.toString().isNullOrEmpty()
                                 ){
-                                    //Error
-                                }*/
-                               // else{
+
+                                    var dialog = DialogManager("You should complete all the fields")
+                                    dialog.show(fragmentManager, TAG)
+                                }
+                                else{
 
 
-                                    var userDoctor: UserDoctor = UserDoctor(1, Name.value.toString(), Last_Name.value.toString(), Email.value.toString(),
+                                    var userDoctor: UserDoctor = UserDoctor(1, Name.value.toString(),
+                                            Last_Name.value.toString(), Email.value.toString(),
                                     Birth.value.toString(), Speciality.value.toString(), Squatur.value.toString())
-                                    var registerUsers: RegisterUsers = RegisterUsers()
-                                    registerUsers.Register(userDoctor)
+                                    var registerUsers: RegisterUsersDoctor = RegisterUsersDoctor(fragmentManager)
+                                    registerUsers.RegisterDoctor(context, userDoctor)
                                     Toast.makeText(context, "Funciona", Toast.LENGTH_SHORT).show()
-                                GoHome(context = context)
-                               // }
+                                }
                             }, modifier = Modifier
                                 .preferredHeight(50.dp)
                                 .fillMaxWidth(),
@@ -171,15 +174,13 @@ val buttonShape = RoundedCornerShape(25.dp)
         }
     }
 
-
-
     @Composable
-    fun FormPatient(){
+    fun FormPatient(context: Context, fragmentManager: FragmentManager){
         var Name = remember { mutableStateOf("") }
         var Last_Name = remember { mutableStateOf("") }
         var Email = remember { mutableStateOf("") }
         var Birth = remember { mutableStateOf("") }
-        var Contraseña = remember { mutableStateOf("") }
+        var Password = remember { mutableStateOf("") }
 
         Column(modifier = Modifier.fillMaxHeight(),verticalArrangement = Arrangement.Center) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
@@ -220,20 +221,24 @@ val buttonShape = RoundedCornerShape(25.dp)
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 10.dp),
-                        placeholder = { Text(text = "Birth 00-00-0000") },
+                        placeholder = { Text(text = "Birth 25-10-2000") },
                         leadingIcon = { Icon(vectorResource(ic_date)) }
                     )
-                    OutlinedTextField(value = Contraseña.value, onValueChange = { Contraseña.value = it },
+                    OutlinedTextField(value = Password.value, onValueChange = { Password.value = it },
                         inactiveColor = MaterialTheme.colors.primary,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 10.dp),
-                        placeholder = { Text(text = "Contraseña") },
+                        placeholder = { Text(text = "Password") },
                         leadingIcon = { Icon(vectorResource(ic_password)) }
                     )
                     Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Bottom) {
                         Button(
                             onClick = {
+                                val registerUsersPatient = RegisterUsersPatient(fragmentManager)
+                                val usersPatient = UserPacient(1,Name.value.toString(), Last_Name.value.toString(),
+                                        Email.value.toString(), Birth.value, Password.value.toString())
+                                registerUsersPatient.RegisterPatient(context, usersPatient)
 
                             }, modifier = Modifier
                                 .preferredHeight(50.dp)

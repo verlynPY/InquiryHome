@@ -7,14 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.*
 import androidx.compose.ui.platform.setContent
+import androidx.fragment.app.FragmentManager
 import com.example.inquiryhome.model.UserDoctor
-import com.example.inquiryhome.view.ComponentView.HomeView
+import com.example.inquiryhome.view.ComponentView.PatientHomeView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 
 
-class HomeActivity : AppCompatActivity() {
+class HomePatientActivity : AppCompatActivity() {
 
     val TAG = "com.example.inquiryhome"
     lateinit var databaseReference: DatabaseReference
@@ -29,15 +29,16 @@ class HomeActivity : AppCompatActivity() {
 
         GetUserInfo()
 
-
         setContent {
             MaterialTheme(colors = if (isSystemInDarkTheme())
                 MaterialThemeColors.DarkColor else MaterialThemeColors.LigthColor)
             {
-                HomeView(this)
+                PatientHomeView(this)
             }
         }
     }
+
+
     fun GetUserInfo(){
         var id: String = firebaseAuth.currentUser!!.uid
         databaseReference.child("users").child(id).addValueEventListener(object: ValueEventListener{
@@ -46,7 +47,7 @@ class HomeActivity : AppCompatActivity() {
                     var doctor: UserDoctor = snapshot.getValue(UserDoctor::class.java)!!
                     Log.e(TAG, "Id: ${firebaseAuth.uid} ${doctor}")
                     Name = doctor.Name!!
-                    Toast.makeText(this@HomeActivity, "$Name", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@HomePatientActivity, "$Name", Toast.LENGTH_SHORT).show()
                 }
 
             }

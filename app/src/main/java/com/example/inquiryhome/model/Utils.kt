@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.example.inquiryhome.view.DoctorRegisterActivity
 import com.example.inquiryhome.view.ExploreDoctorAtivity
-import com.example.inquiryhome.view.HomeActivity
+import com.example.inquiryhome.view.HomePatientActivity
 import com.example.inquiryhome.view.PatientRegisterActivity
 
 object Utilss {
@@ -31,7 +31,7 @@ object Utilss {
     }
 
     fun GoHome(context: Context){
-        val intent = Intent(context, HomeActivity::class.java)
+        val intent = Intent(context, HomePatientActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }

@@ -1,7 +1,6 @@
 package com.example.inquiryhome.view.ComponentView
 
 import android.content.Context
-import android.graphics.Paint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,21 +15,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.inquiryhome.R
+import com.example.inquiryhome.model.StatusProgress
+import com.example.inquiryhome.model.UserPacient
 import com.example.inquiryhome.model.Utilss.GoExploreDoctor
 import com.example.inquiryhome.view.buttonShape
 
     @Composable
-    fun PatientHomeView(context: Context){
+    fun PatientHomeView(context: Context, patient: UserPacient, onClick :()-> Unit){
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End){
+            Column(modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(bottom = 8.dp), verticalArrangement = Arrangement.Top) {
+                IconButton(onClick = onClick) {
+                    Icon(vectorResource(id = R.drawable.close), tint = Color(255,0,0))
+                }
+            }
+        }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
             Column(modifier = Modifier
                     .fillMaxHeight()
                     .padding(bottom = 8.dp), verticalArrangement = Arrangement.Top) {
-                Profile()
+                Profile(patient)
             }
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
@@ -51,7 +62,7 @@ import com.example.inquiryhome.view.buttonShape
                         text.value = it
                     }
                     Box {
-                        Column {
+                        Column(modifier = Modifier.padding(8.dp)) {
                             OutlinedTextField(
                                     value = text.value,
                                     onValueChange = { text.value = it },
@@ -78,6 +89,7 @@ import com.example.inquiryhome.view.buttonShape
                     }
                     Button(onClick = {
                         GoExploreDoctor(text.value.toString(), context = context)
+
                     }, modifier = Modifier
                             .preferredHeight(50.dp)
                             .fillMaxWidth(0.7f),
@@ -90,12 +102,19 @@ import com.example.inquiryhome.view.buttonShape
     }
 
     @Composable
+    fun CircularProgress(Visible: Boolean){
+        if(Visible){
+            CircularProgressIndicator(color = MaterialTheme.colors.primary)
+        }
+    }
+
+    @Composable
     fun DoctorHomeView(context: Context){
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
             Column(modifier = Modifier
                     .fillMaxHeight()
                     .padding(bottom = 8.dp), verticalArrangement = Arrangement.Top) {
-                Profile()
+                //Profile()
             }
         }
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
@@ -159,7 +178,7 @@ import com.example.inquiryhome.view.buttonShape
     }
 
     @Composable
-    fun Profile(){
+    fun Profile(patient: UserPacient){
         var image = R.mipmap.profil_default
                 Column(modifier = Modifier
                         .fillMaxHeight()
@@ -170,7 +189,7 @@ import com.example.inquiryhome.view.buttonShape
                                     .preferredHeight(140.dp)
                                     .clip(CircleShape)
                     )
-                    Text(text = "Name Here", textAlign = TextAlign.Center,
+                    Text(text = "${patient.Name} ${patient.Last_Name}", textAlign = TextAlign.Center,
                             fontSize = 26.sp, fontWeight = FontWeight.Bold)
 
                 }

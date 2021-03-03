@@ -15,7 +15,9 @@ class DoctorRegisterActivity : AppCompatActivity() {
 
         setContent {
             MaterialTheme(colors = if (isSystemInDarkTheme()) MaterialThemeColors.DarkColor else MaterialThemeColors.LigthColor) {
+                overridePendingTransition(0,0)
                 FormDoctor(fragment, this)
+                overridePendingTransition(0,0)
             }
         }
     }

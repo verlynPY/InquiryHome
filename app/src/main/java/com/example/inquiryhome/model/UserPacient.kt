@@ -2,7 +2,7 @@ package com.example.inquiryhome.model
 
 data class UserPacient (
 
-    val Id: Int = 0,
+    val Id: String = "",
     val Name: String? = null,
     val Last_Name: String? = null,
     val Email: String = "",

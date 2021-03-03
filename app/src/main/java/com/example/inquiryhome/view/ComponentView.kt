@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
 import com.example.inquiryhome.model.DialogManager
 import com.example.inquiryhome.model.Register.RegisterUsersPatient
 import com.example.inquiryhome.model.RegisterUsersDoctor
@@ -25,6 +26,7 @@ import com.example.inquiryhome.model.UserDoctor
 import com.example.inquiryhome.model.UserPacient
 import com.example.inquiryhome.model.Utilss.GoRegisterDoctor
 import com.example.inquiryhome.model.Utilss.GoRegisterPatient
+import com.example.inquiryhome.view.ComponentView.CircularProgress
 import com.example.inquiryhome.view.Components.ic_data
 import com.example.inquiryhome.view.Components.ic_date
 import com.example.inquiryhome.view.Components.ic_password
@@ -60,6 +62,30 @@ val buttonShape = RoundedCornerShape(25.dp)
                         GoRegisterDoctor(context)
                     }, shape = buttonShape, modifier = buttonModifier) {
                         Text(text = "Doctor", style = MaterialTheme.typography.h6)
+                    }
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun GetStarted2(context: Context, navController: NavController){
+        Column(modifier = Modifier.fillMaxHeight(),verticalArrangement = Arrangement.Center) {
+            Image(imageResource(Components.imageResource), modifier = imagemodifier)
+            Row(modifier = Modifier.fillMaxWidth() ,horizontalArrangement = Arrangement.Center) {
+                Column(modifier = Modifier.fillMaxHeight(),verticalArrangement = Arrangement.Center) {
+                    Text(text = "Choose a Role", fontSize = 28.sp, fontFamily = FontFamily.SansSerif,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Button(onClick = {
+                        GoRegisterPatient(context)
+                    }, shape = buttonShape, modifier = buttonModifier) {
+                        Text(text = "Login", style = MaterialTheme.typography.h6)
+                    }
+                    Button(onClick = {
+                        GoRegisterDoctor(context)
+                    }, shape = buttonShape, modifier = buttonModifier) {
+                        Text(text = "Register", style = MaterialTheme.typography.h6)
                     }
                 }
             }
@@ -153,13 +179,20 @@ val buttonShape = RoundedCornerShape(25.dp)
                                 }
                                 else{
 
-
-                                    var userDoctor: UserDoctor = UserDoctor(1, Name.value.toString(),
+                                    try{
+                                        var userDoctor: UserDoctor = UserDoctor(1, Name.value.toString(),
                                             Last_Name.value.toString(), Email.value.toString(),
-                                    Birth.value.toString(), Speciality.value.toString(), Squatur.value.toString())
-                                    var registerUsers: RegisterUsersDoctor = RegisterUsersDoctor(fragmentManager)
-                                    registerUsers.RegisterDoctor(context, userDoctor)
-                                    Toast.makeText(context, "Funciona", Toast.LENGTH_SHORT).show()
+                                            Birth.value.toString(), Speciality.value.toString(), Squatur.value.toString())
+                                        var registerUsers: RegisterUsersDoctor = RegisterUsersDoctor(fragmentManager)
+                                        registerUsers.RegisterDoctor(context, userDoctor)
+                                        Toast.makeText(context, "Funciona", Toast.LENGTH_SHORT).show()
+                                    }
+                                    catch (e: Exception){
+                                        var dialog = DialogManager("$e")
+                                        dialog.show(fragmentManager, TAG)
+                                    }
+
+
                                 }
                             }, modifier = Modifier
                                 .preferredHeight(50.dp)
@@ -233,12 +266,31 @@ val buttonShape = RoundedCornerShape(25.dp)
                         leadingIcon = { Icon(vectorResource(ic_password)) }
                     )
                     Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Bottom) {
+                        Row(modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp), horizontalArrangement = Arrangement.Center){
+                           // CircularProgress(Visible = true)
+                        }
                         Button(
                             onClick = {
-                                val registerUsersPatient = RegisterUsersPatient(fragmentManager)
-                                val usersPatient = UserPacient(1,Name.value.toString(), Last_Name.value.toString(),
-                                        Email.value.toString(), Birth.value, Password.value.toString())
-                                registerUsersPatient.RegisterPatient(context, usersPatient)
+                                if(Name.value.toString().isNullOrEmpty() || Last_Name.value.toString().isNullOrEmpty()
+                                    || Email.value.toString().isNullOrEmpty() || Birth.value.toString().isNullOrEmpty()
+                                    || Password.value.toString().isNullOrEmpty()
+                                ){
+                                    var dialog = DialogManager("You should complete all the fields")
+                                    dialog.show(fragmentManager, TAG)
+                                }
+                                else{
+                                    try{
+                                        val registerUsersPatient = RegisterUsersPatient(fragmentManager)
+                                        val usersPatient = UserPacient("1",Name.value.toString(), Last_Name.value.toString(),
+                                            Email.value.toString(), Birth.value, Password.value.toString())
+                                        registerUsersPatient.RegisterPatient(context, usersPatient)
+                                    }
+                                    catch (e: Exception){
+                                        var dialog = DialogManager("$e")
+                                        dialog.show(fragmentManager, TAG)
+                                    }
+                                }
+
 
                             }, modifier = Modifier
                                 .preferredHeight(50.dp)

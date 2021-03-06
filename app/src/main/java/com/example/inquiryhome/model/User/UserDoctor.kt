@@ -1,4 +1,4 @@
-package com.example.inquiryhome.model
+package com.example.inquiryhome.model.User
 
 import android.graphics.Bitmap
 

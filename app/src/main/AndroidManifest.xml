@@ -13,20 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InquiryHome">
         <activity
-            android:name=".view.ExploreDoctorAtivity"
-            android:label="@string/title_activity_explore_doctor_ativity"
-            android:theme="@style/Theme.InquiryHome.NoActionBar">
-
-        </activity>
+            android:name=".view.Home.HomeDoctorActivity"
+            android:label="@string/title_activity_home_doctor"
+            android:theme="@style/Theme.InquiryHome.NoActionBar"></activity>
         <activity
-            android:name=".view.HomePatientActivity"
-            android:label="@string/title_activity_home"
-            android:theme="@style/Theme.InquiryHome.NoActionBar">
-
-        </activity>
+            android:name=".view.LoginAcitivity"
+            android:label="@string/title_activity_login_acitivity"
+            android:theme="@style/Theme.InquiryHome.NoActionBar" />
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:name=".view.StartActivity"
+            android:label="@string/title_activity_start"
             android:theme="@style/Theme.InquiryHome.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,11 +31,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.PatientRegisterActivity"
+            android:name=".view.ExploreDoctorAtivity"
+            android:label="@string/title_activity_explore_doctor_ativity"
+            android:theme="@style/Theme.InquiryHome.NoActionBar" />
+        <activity
+            android:name=".view.Home.HomePatientActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/Theme.InquiryHome.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.InquiryHome.NoActionBar" />
+        <activity
+            android:name=".view.Register.PatientRegisterActivity"
             android:label="@string/title_activity_patient_register"
             android:theme="@style/Theme.InquiryHome.NoActionBar" />
         <activity
-            android:name=".view.DoctorRegisterActivity"
+            android:name=".view.Register.DoctorRegisterActivity"
             android:label="@string/title_activity_doctor_register"
             android:theme="@style/Theme.InquiryHome.NoActionBar" />
     </application>

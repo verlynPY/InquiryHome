@@ -21,8 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.inquiryhome.R
-import com.example.inquiryhome.model.StatusProgress
-import com.example.inquiryhome.model.UserPacient
+import com.example.inquiryhome.model.User.UserPacient
 import com.example.inquiryhome.model.Utilss.GoExploreDoctor
 import com.example.inquiryhome.view.buttonShape
 

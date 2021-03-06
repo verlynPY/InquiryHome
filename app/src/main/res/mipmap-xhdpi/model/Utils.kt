@@ -2,8 +2,8 @@ package com.example.inquiryhome.model
 
 import android.content.Context
 import android.content.Intent
-import com.example.inquiryhome.view.DoctorRegisterActivity
-import com.example.inquiryhome.view.PatientRegisterActivity
+import com.example.inquiryhome.view.Register.DoctorRegisterActivity
+import com.example.inquiryhome.view.Register.PatientRegisterActivity
 
 
 object Utils {

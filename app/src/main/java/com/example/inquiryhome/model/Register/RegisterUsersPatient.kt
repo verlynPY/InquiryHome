@@ -5,7 +5,7 @@ import android.content.Context
 import android.util.Log
 import androidx.fragment.app.FragmentManager
 import com.example.inquiryhome.model.DialogManager
-import com.example.inquiryhome.model.UserPacient
+import com.example.inquiryhome.model.User.UserPacient
 import com.example.inquiryhome.model.Utilss
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

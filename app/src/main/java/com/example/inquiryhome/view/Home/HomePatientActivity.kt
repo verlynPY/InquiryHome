@@ -6,10 +6,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.inquiryhome.R
+import com.example.inquiryhome.model.Utilss.SignOut
+import com.example.inquiryhome.view.Chat.ChatItems
 import com.example.inquiryhome.view.ComponentView.PatientHomeView
 import com.example.inquiryhome.view.MaterialThemeColors
 import com.example.inquiryhome.view.StartActivity
@@ -41,26 +52,22 @@ class HomePatientActivity : AppCompatActivity() {
         }
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.ShowProfile(this, id).observe(this, Observer { patient ->
-
             setContent {
                 MaterialTheme(
-                    colors = if (isSystemInDarkTheme())
-                        MaterialThemeColors.DarkColor else MaterialThemeColors.LigthColor
+                        colors = if (isSystemInDarkTheme())
+                            MaterialThemeColors.DarkColor else MaterialThemeColors.LigthColor
                 )
                 {
-                    overridePendingTransition(0, 0)
-                    PatientHomeView(context = this, patient = patient, onClick = { SignOut(firebaseAuth = firebaseAuth) })
-                    overridePendingTransition(0, 0)
+
+                    com.example.inquiryhome.view.TopAppBar(context = this, patient = patient,
+                            firebaseAuth = firebaseAuth)
 
                 }
             }
         })
     }
 
-    private fun SignOut(firebaseAuth: FirebaseAuth){
-        firebaseAuth.signOut()
-        startActivity(Intent(this, StartActivity::class.java))
-        finish()
-    }
+
+
 
 }

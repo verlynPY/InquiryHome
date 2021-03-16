@@ -24,7 +24,7 @@ import com.example.inquiryhome.model.User.UserPacient
 import com.example.inquiryhome.view.ComponentView.CircularProgress
 import com.example.inquiryhome.view.Components
 import com.example.inquiryhome.view.Home.HomePatientActivity
-import com.example.inquiryhome.view.LoginAcitivity
+import com.example.inquiryhome.view.Login.LoginAcitivity
 import com.example.inquiryhome.view.MaterialThemeColors
 import com.example.inquiryhome.view.buttonShape
 import com.example.inquiryhome.viewmodel.MainViewModel

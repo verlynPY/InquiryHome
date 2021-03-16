@@ -35,17 +35,17 @@ class RegisterUsersDoctor(private val fragmentManager: FragmentManager) {
                     val hashMap: HashMap<String, String> = HashMap<String, String>()
                     val id = user!!.uid
                     hashMap.put("Id", id)
-                    hashMap.put("Name", doctor.Name.toString())
-                    hashMap.put("Last_name", doctor.Last_Name.toString())
+                    hashMap.put("Name", doctor.Name.toString().capitalize())
+                    hashMap.put("Last_name", doctor.Last_name.toString().capitalize())
                     hashMap.put("Email", doctor.Email.toString())
                     hashMap.put("Birth", doctor.Birth.toString())
-                    hashMap.put("Speciality", doctor.Specility.toString())
-                    hashMap.put("squatur", doctor.Squatur.toString())
+                    hashMap.put("Speciality", doctor.Speciality.toString().capitalize())
+                    hashMap.put("Squatur", doctor.Squatur.toString())
 
                     reference.child("users").child(id).setValue(hashMap).addOnCompleteListener(){ task ->
                         if(task.isSuccessful){
                             Log.e(TAG, "Todo bien")
-                            Utilss.GoHome(context = context)
+                          //  Utilss.GoHome(context = context)
 
                         }
                     }

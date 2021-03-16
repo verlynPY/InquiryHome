@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import androidx.fragment.app.FragmentManager
 import com.example.inquiryhome.model.DialogManager
+import com.example.inquiryhome.model.Utilss.GoDoctorHome
 import com.example.inquiryhome.model.Utilss.GoHome
 import com.google.firebase.auth.FirebaseAuth
 
@@ -11,12 +12,19 @@ class Login(private val fragmentManager: FragmentManager) {
 
     private lateinit var auth: FirebaseAuth
 
-    fun PatientLogin(context: Context, Email: String, Password: String){
+    fun PatientLogin(context: Context, Email: String, Password: String, Patient: Boolean, Doctor: Boolean){
+
         auth = FirebaseAuth.getInstance()
         auth.signInWithEmailAndPassword(Email, Password)
             .addOnCompleteListener { task ->
                 if(task.isSuccessful){
-                    GoHome(context = context)
+                    if(Patient == true){
+                        GoHome(context = context)
+                    }
+                    if(Doctor == true){
+                        GoDoctorHome(context = context)
+                    }
+
                 }
             }
             .addOnFailureListener { e ->
@@ -24,4 +32,5 @@ class Login(private val fragmentManager: FragmentManager) {
                 dialog.show(fragmentManager, ContentValues.TAG)
             }
     }
+
 }

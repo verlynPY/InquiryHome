@@ -11,5 +11,6 @@ object Components {
     val ic_password = R.drawable.ic_password
     val ic_data = R.drawable.ic_data
     val ic_date = R.drawable.ic_date
+    val ic_SingUp = R.drawable.close
 
 }

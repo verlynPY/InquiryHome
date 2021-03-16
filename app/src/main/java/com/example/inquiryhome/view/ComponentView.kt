@@ -31,6 +31,7 @@ import com.example.inquiryhome.view.Components.ic_data
 import com.example.inquiryhome.view.Components.ic_date
 import com.example.inquiryhome.view.Components.ic_password
 import com.example.inquiryhome.view.Components.imageDoctor
+import com.example.inquiryhome.view.Login.LoginAcitivity
 
 
 val buttonShape = RoundedCornerShape(25.dp)
@@ -44,7 +45,7 @@ val buttonShape = RoundedCornerShape(25.dp)
         .absolutePadding(top = 40.dp)
 
     @Composable
-    fun GetStarted(context: Context){
+    fun GetStarted(context: Context, onClick:() -> Unit, onClick2:() -> Unit){
         Column(modifier = Modifier.fillMaxHeight(),verticalArrangement = Arrangement.Center) {
             Image(imageResource(Components.imageResource), modifier = imagemodifier)
             Row(modifier = Modifier.fillMaxWidth() ,horizontalArrangement = Arrangement.Center) {
@@ -52,14 +53,10 @@ val buttonShape = RoundedCornerShape(25.dp)
                     Text(text = "Choose a Role", fontSize = 28.sp, fontFamily = FontFamily.SansSerif,
                             fontWeight = FontWeight.Bold
                     )
-                    Button(onClick = {
-                        GoRegisterPatient(context)
-                    }, shape = buttonShape, modifier = buttonModifier) {
+                    Button(onClick = onClick, shape = buttonShape, modifier = buttonModifier) {
                         Text(text = "Pacient", style = MaterialTheme.typography.h6)
                     }
-                    Button(onClick = {
-                        GoRegisterDoctor(context)
-                    }, shape = buttonShape, modifier = buttonModifier) {
+                    Button(onClick = onClick2, shape = buttonShape, modifier = buttonModifier) {
                         Text(text = "Doctor", style = MaterialTheme.typography.h6)
                     }
                 }
@@ -179,7 +176,7 @@ val buttonShape = RoundedCornerShape(25.dp)
                                 else{
 
                                     try{
-                                        var userDoctor: UserDoctor = UserDoctor(1, Name.value.toString(),
+                                        var userDoctor: UserDoctor = UserDoctor("", Name.value.toString(),
                                             Last_Name.value.toString(), Email.value.toString(),
                                             Birth.value.toString(), Speciality.value.toString(), Squatur.value.toString())
                                         var registerUsers: RegisterUsersDoctor = RegisterUsersDoctor(fragmentManager)

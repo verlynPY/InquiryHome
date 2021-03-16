@@ -26,16 +26,7 @@ import com.example.inquiryhome.model.Utilss.GoExploreDoctor
 import com.example.inquiryhome.view.buttonShape
 
     @Composable
-    fun PatientHomeView(context: Context, patient: UserPacient, onClick :()-> Unit){
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End){
-            Column(modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(bottom = 8.dp), verticalArrangement = Arrangement.Top) {
-                IconButton(onClick = onClick) {
-                    Icon(vectorResource(id = R.drawable.close), tint = Color(255,0,0))
-                }
-            }
-        }
+    fun PatientHomeView(context: Context, patient: UserPacient){
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
             Column(modifier = Modifier
                     .fillMaxHeight()
@@ -105,75 +96,6 @@ import com.example.inquiryhome.view.buttonShape
         if(Visible){
             CircularProgressIndicator(color = MaterialTheme.colors.primary)
         }
-    }
-
-    @Composable
-    fun DoctorHomeView(context: Context){
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
-            Column(modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(bottom = 8.dp), verticalArrangement = Arrangement.Top) {
-                //Profile()
-            }
-        }
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
-
-
-            Column(modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(bottom = 8.dp), verticalArrangement = Arrangement.Center) {
-                val speciality = listOf(
-                        "Dentista",
-                        "Pediatra",
-                        "Nutriologo"
-                )
-                val text = remember { mutableStateOf("") }
-                val isOpen = remember { mutableStateOf(false) }
-                val openCloseOfDropDownList: (Boolean) -> Unit = {
-                    isOpen.value = it
-                }
-                val userSelectedString: (String) -> Unit = {
-                    text.value = it
-                }
-                Box {
-                    Column {
-                        OutlinedTextField(
-                                value = text.value,
-                                onValueChange = { text.value = it },
-                                placeholder = { Text(text = "Speciality") },
-                                modifier = Modifier.fillMaxWidth(0.7f),
-                                inactiveColor = MaterialTheme.colors.primary,
-                        )
-                        DropDownList(
-                                requestToOpen = isOpen.value,
-                                list = speciality,
-                                openCloseOfDropDownList,
-                                userSelectedString
-                        )
-                    }
-
-                    Spacer(
-                            modifier = Modifier
-                                    .matchParentSize()
-                                    .background(Color.Transparent)
-                                    .padding(10.dp)
-                                    .clickable(
-                                            onClick = { isOpen.value = true }
-                                    )
-                    )
-                }
-                Button(onClick = {
-                    GoExploreDoctor(text.value.toString(), context = context)
-                }, modifier = Modifier
-                        .preferredHeight(50.dp)
-                        .fillMaxWidth(0.7f),
-                        shape = buttonShape
-                ) {
-                    Text(text = "Inquiry", style = MaterialTheme.typography.h6)
-                }
-            }
-        }
-
     }
 
     @Composable

@@ -1,8 +1,7 @@
-package com.example.inquiryhome.view
+package com.example.inquiryhome.view.Login
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -20,17 +19,17 @@ import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import com.example.inquiryhome.MainActivity
 import com.example.inquiryhome.R
+import com.example.inquiryhome.view.Components
+import com.example.inquiryhome.view.MaterialThemeColors
 import com.example.inquiryhome.viewmodel.MainViewModel
 
-
-class LoginAcitivity : AppCompatActivity() {
+class LoginDoctorActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var fragmentManager: FragmentManager
@@ -60,26 +59,27 @@ class LoginAcitivity : AppCompatActivity() {
                     backgroundColor = MaterialTheme.colors.primary
 
                 ){
-                        Row(modifier = Modifier.fillMaxWidth()){
-                            Column(modifier = Modifier
-                                .fillMaxHeight()
-                                .absolutePadding(left = 8.dp), verticalArrangement = Arrangement.Center) {
-                                Text(text = "InquiryHome", fontSize = 34.sp, fontWeight = FontWeight.Bold)
-                                Text(text = "You can talk to a", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
-                                Text(text = "programming", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
-                                Text(text = "from anywhere", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+                    Row(modifier = Modifier.fillMaxWidth()){
+                        Column(modifier = Modifier
+                            .fillMaxHeight()
+                            .absolutePadding(left = 8.dp), verticalArrangement = Arrangement.Center) {
+                            Text(text = "InquiryHome", fontSize = 34.sp, fontWeight = FontWeight.Bold)
+                            Text(text = "Make a consult", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+                            Text(text = "from your", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+                            Text(text = "house", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+                        }
+                        Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
+                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End){
+                                Image(
+                                    imageResource(id = R.mipmap.img), modifier = Modifier
+                                    .preferredHeight(160.dp)
+                                    .preferredWidth(160.dp))
                             }
-                            Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
-                                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End){
-                                    Image(imageResource(id = R.mipmap.img), modifier = Modifier
-                                        .preferredHeight(160.dp)
-                                        .preferredWidth(160.dp))
-                                }
-
-                            }
-
 
                         }
+
+
+                    }
                 }
 
                 Row(
@@ -120,24 +120,24 @@ class LoginAcitivity : AppCompatActivity() {
                             modifier = Modifier
                                 .fillMaxWidth(0.8f)
                                 .padding(top = 10.dp),
-                            placeholder = { Text(text = "Password") },
+                            placeholder = { Text(text = "Squator") },
                             leadingIcon = { Icon(vectorResource(Components.ic_password)) }
                         )
                         Spacer(modifier = Modifier.preferredHeight(30.dp))
                         Button(onClick = {
-                            viewModel.LogIn(this@LoginAcitivity, fragmentManager, Email.value, Password.value)
+                            viewModel.LogInDoctor(this@LoginDoctorActivity, fragmentManager, Email.value, Password.value)
                         }, shape = buttonShape, modifier = buttonModifier) {
                             Text(text = "Log In", style = MaterialTheme.typography.h6)
                         }
-                                Text(
-                                    text = "Forget your password?",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    color = MaterialTheme.colors.secondary,
-                                    modifier = Modifier
-                                        .align(Alignment.CenterHorizontally)
-                                        .absolutePadding(top = 8.dp)
-                                )
+                        Text(
+                            text = "Forget your password?",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colors.secondary,
+                            modifier = Modifier
+                                .align(Alignment.CenterHorizontally)
+                                .absolutePadding(top = 8.dp)
+                        )
 
                     }
                 }
@@ -162,8 +162,7 @@ class LoginAcitivity : AppCompatActivity() {
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colors.secondary,
                             modifier = Modifier.clickable(onClick = {
-                                startActivity(Intent(this@LoginAcitivity, MainActivity::class.java))
-                                finish()
+
                             })
                         )
                     }

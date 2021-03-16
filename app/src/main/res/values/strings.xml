@@ -7,4 +7,8 @@
     <string name="title_activity_start">My Compose App</string>
     <string name="title_activity_login_acitivity">My Compose App</string>
     <string name="title_activity_home_doctor">My Compose App</string>
+    <string name="title_activity_chat">My Compose App</string>
+    <string name="title_activity_login_doctor">My Compose App</string>
+    <string name="title_activity_chat_patient">My Compose App</string>
+    <string name="title_activity_main2">My Compose App</string>
 </resources>

@@ -4,14 +4,15 @@ import android.graphics.Bitmap
 
 data class UserDoctor (
 
-    val id: Int = 0,
+    val Id: String = "",
     val Name: String? = null,
-    val Last_Name: String? = null,
+    val Last_name: String? = null,
     val Email: String = "",
     val Birth: String? = null,
-    val Specility: String? = null,
+    val Speciality: String? = null,
+    //var Status: String? = "",
     //val Image_Profile: Bitmap,
-    var Squatur: String = ""
+    val Squatur: String = ""
 
 
 

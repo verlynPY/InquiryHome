@@ -28,9 +28,9 @@ class RegisterUsersPatient(private val fragmentManager: FragmentManager) {
                 var user: FirebaseUser = auth.currentUser!!
                 var id: String = user.uid
                 var hashMap: HashMap<String, String> = HashMap()
-                hashMap.put("Id", patient.Id.toString())
-                hashMap.put("Name", patient.Name.toString())
-                hashMap.put("Last_Name", patient.Last_Name.toString())
+                hashMap.put("Id", id)
+                hashMap.put("Name", patient.Name.toString().capitalize())
+                hashMap.put("Last_Name", patient.Last_Name.toString().capitalize())
                 hashMap.put("Email", patient.Email.toString())
                 hashMap.put("Birth", patient.Birth.toString())
                 hashMap.put("Password", patient.Password)

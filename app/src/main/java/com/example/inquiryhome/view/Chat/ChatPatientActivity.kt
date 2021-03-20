@@ -54,74 +54,87 @@ class ChatPatientActivity : AppCompatActivity() {
         Log.e(TAG, "MyId: ${myId}")
         Log.e(TAG, "UserId: ${UserId}")
 
-        viewModel.GettingMessages(myId, UserId.toString(), fragmentManager)
-            .observe(this, Observer {
-                mchat!!.add(it)
-                ChatValue.value = true
-                Log.e(TAG, "Esto se lanzo")
 
-                setContent {
-                    MaterialTheme(
-                        colors = if (isSystemInDarkTheme())
-                            MaterialThemeColors.DarkColor else MaterialThemeColors.LigthColor
-                    ) {
-                        Scaffold(
-                            topBar = {
-                                TopAppBar(
-                                    title = {
-                                        Text(text = "Name")
-                                    },
-                                    navigationIcon = {
-                                        IconButton(onClick = {
-                                            finish()
-                                        }) {
-                                            Icon(
-                                                Icons.Filled.ArrowBack,
-                                                tint = Color(200, 200, 200)
+            viewModel.GettingMessages(myId, UserId.toString(), fragmentManager)
+                    .observe(this, Observer {
+                        mchat!!.add(it)
+                        ChatValue.value = true
+                        Log.e(TAG, "Esto se lanzo")
+
+                        setContent {
+
+
+                            MaterialTheme(
+                                    colors = if (isSystemInDarkTheme())
+                                        MaterialThemeColors.DarkColor else MaterialThemeColors.LigthColor
+                            ) {
+                                Scaffold(
+                                        topBar = {
+                                            TopAppBar(
+                                                    title = {
+                                                        Text(text = "Name")
+                                                    },
+                                                    navigationIcon = {
+                                                        IconButton(onClick = {
+                                                            finish()
+                                                        }) {
+                                                            Icon(
+                                                                    Icons.Filled.ArrowBack,
+                                                                    tint = Color(200, 200, 200)
+                                                            )
+                                                        }
+                                                    },
+                                                    backgroundColor = MaterialTheme.colors.primary,
+                                                    contentColor = Color.White,
+                                                    elevation = 12.dp
                                             )
+                                        }, bodyContent = {
+
+                                    if (ChatValue.value == true) {
+                                        Column(
+                                                modifier = Modifier.fillMaxHeight(0.9f),
+                                                verticalArrangement = Arrangement.Bottom
+                                        )
+                                        {
+                                            ChatItems(myId, chat = mchat!!)
                                         }
-                                    },
-                                    backgroundColor = MaterialTheme.colors.primary,
-                                    contentColor = Color.White,
-                                    elevation = 12.dp
-                                )
-                            }, bodyContent = {
-                                if (ChatValue.value == true) {
-                                    ChatItems(myId, chat = mchat!!)
-                                }
-                                Column(
-                                    modifier = Modifier.fillMaxHeight(),
-                                    verticalArrangement = Arrangement.Bottom
-                                )
-                                {
-                                    val message = remember { mutableStateOf("") }
-                                    OutlinedTextField(
-                                        value = message.value,
-                                        onValueChange = { message.value = it },
-                                        modifier = Modifier.fillMaxWidth(),
-                                        inactiveColor = MaterialTheme.colors.primary,
-                                        trailingIcon = {
-                                            IconButton(onClick = {
-                                                mchat!!.clear()
-                                                viewModel.SendMessage(
-                                                    myId,
-                                                    UserId.toString(),
-                                                    message.value,
-                                                    fragmentManager
-                                                )
-                                                message.value = ""
-                                            }) {
-                                                Icon(
-                                                    Icons.Filled.Send,
-                                                    tint = MaterialTheme.colors.primary
-                                                )
-                                            }
-                                        }
+                                    }
+
+                                    Column(
+                                            modifier = Modifier.fillMaxHeight(),
+                                            verticalArrangement = Arrangement.Bottom
                                     )
-                                }
-                            })
-                    }
-                }
-            })
+                                    {
+                                        val message = remember { mutableStateOf("") }
+                                        OutlinedTextField(
+                                                value = message.value,
+                                                onValueChange = { message.value = it },
+                                                modifier = Modifier.fillMaxWidth(),
+                                                inactiveColor = MaterialTheme.colors.primary,
+                                                trailingIcon = {
+                                                    IconButton(onClick = {
+                                                        mchat!!.clear()
+                                                        viewModel.SendMessage(
+                                                                myId,
+                                                                UserId.toString(),
+                                                                message.value,
+                                                                fragmentManager
+                                                        )
+                                                        message.value = ""
+                                                    }) {
+                                                        Icon(
+                                                                Icons.Filled.Send,
+                                                                tint = MaterialTheme.colors.primary
+                                                        )
+                                                    }
+                                                }
+                                        )
+                                    }
+                                })
+                            }
+
+                        }
+                    })
+
     }
 }

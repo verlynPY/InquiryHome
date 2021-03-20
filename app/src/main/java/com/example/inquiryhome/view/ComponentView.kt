@@ -89,7 +89,7 @@ val buttonShape = RoundedCornerShape(25.dp)
     }
 
     @Composable
-    fun FormDoctor(fragmentManager: FragmentManager, context: Context){
+    fun FormDoctor(fragmentManager: FragmentManager, context: Context, onClick: () -> Unit, onClick2: () -> Unit){
         var Name = remember { mutableStateOf("") }
         var Last_Name = remember { mutableStateOf("") }
         var Email = remember { mutableStateOf("") }
@@ -176,9 +176,12 @@ val buttonShape = RoundedCornerShape(25.dp)
                                 else{
 
                                     try{
+
+                                        var Statuss = "Online"
+
                                         var userDoctor: UserDoctor = UserDoctor("", Name.value.toString(),
                                             Last_Name.value.toString(), Email.value.toString(),
-                                            Birth.value.toString(), Speciality.value.toString(), Squatur.value.toString())
+                                            Birth.value.toString(), Speciality.value.toString(), Statuss, Squatur.value.toString())
                                         var registerUsers: RegisterUsersDoctor = RegisterUsersDoctor(fragmentManager)
                                         registerUsers.RegisterDoctor(context, userDoctor)
                                         Toast.makeText(context, "Funciona", Toast.LENGTH_SHORT).show()
@@ -210,10 +213,7 @@ val buttonShape = RoundedCornerShape(25.dp)
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 color = MaterialTheme.colors.secondary,
-                                modifier = Modifier.clickable(onClick = {
-                                    context.startActivity(Intent(context, LoginAcitivity::class.java))
-
-                                })
+                                modifier = Modifier.clickable(onClick = onClick2)
                             )
                         }
                     }

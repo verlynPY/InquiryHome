@@ -28,9 +28,11 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.inquiryhome.R
+import com.example.inquiryhome.model.Chat.ManageChat
 import com.example.inquiryhome.model.User.UserDoctor
 import com.example.inquiryhome.model.Utilss
 import com.example.inquiryhome.view.Chat.ChatPatientActivity
@@ -120,6 +122,8 @@ class ExploreDoctorAtivity : AppCompatActivity() {
             })
 
     }
+
+
 }
 
     @Composable
@@ -138,7 +142,9 @@ class ExploreDoctorAtivity : AppCompatActivity() {
                                 intent.putExtras(bundle)
                                 context.startActivity(intent)
                             }),
-                    backgroundColor = MaterialTheme.colors.primary
+
+                    backgroundColor = if(doctor.Status.equals("OnLine")) MaterialTheme.colors.primary
+                    else MaterialTheme.colors.onPrimary
             ) {
                 Row(modifier = Modifier
                         .fillMaxWidth()

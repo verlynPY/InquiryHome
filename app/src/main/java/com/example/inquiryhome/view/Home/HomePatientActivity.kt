@@ -2,6 +2,7 @@ package com.example.inquiryhome.view.Home
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -16,9 +17,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.inquiryhome.R
+import com.example.inquiryhome.model.Chat.ManageChat
 import com.example.inquiryhome.model.Utilss.SignOut
 import com.example.inquiryhome.view.Chat.ChatItems
 import com.example.inquiryhome.view.ComponentView.PatientHomeView
@@ -32,10 +35,12 @@ class HomePatientActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var firebaseAuth: FirebaseAuth
-
+    private lateinit var manageChat: ManageChat
+    private lateinit var fragmentManager: FragmentManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        fragmentManager = supportFragmentManager
+        manageChat = ManageChat(fragmentManager = fragmentManager)
         firebaseAuth = FirebaseAuth.getInstance()
         val id: String = firebaseAuth.currentUser!!.uid
 
@@ -67,7 +72,11 @@ class HomePatientActivity : AppCompatActivity() {
         })
     }
 
+    override fun onPause() {
+        super.onPause()
+        manageChat.Status("Ofline")
 
+    }
 
 
 }

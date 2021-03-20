@@ -38,6 +38,7 @@ class FirebaseData {
         return liveData
     }
 
+
     fun GetUserInfoDoctor(context: Context, id: String): MutableLiveData<UserDoctor>{
         var liveData = MutableLiveData<UserDoctor>()
         firebaseAuth = FirebaseAuth.getInstance()

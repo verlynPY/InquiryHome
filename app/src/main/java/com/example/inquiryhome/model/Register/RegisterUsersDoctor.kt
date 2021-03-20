@@ -40,12 +40,13 @@ class RegisterUsersDoctor(private val fragmentManager: FragmentManager) {
                     hashMap.put("Email", doctor.Email.toString())
                     hashMap.put("Birth", doctor.Birth.toString())
                     hashMap.put("Speciality", doctor.Speciality.toString().capitalize())
+                    hashMap.put("Status", doctor.Status.toString())
                     hashMap.put("Squatur", doctor.Squatur.toString())
 
                     reference.child("users").child(id).setValue(hashMap).addOnCompleteListener(){ task ->
                         if(task.isSuccessful){
                             Log.e(TAG, "Todo bien")
-                          //  Utilss.GoHome(context = context)
+                            Utilss.GoDoctorHome(context = context)
 
                         }
                     }

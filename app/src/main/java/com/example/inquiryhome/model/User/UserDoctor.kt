@@ -10,7 +10,7 @@ data class UserDoctor (
     val Email: String = "",
     val Birth: String? = null,
     val Speciality: String? = null,
-    //var Status: String? = "",
+    var Status: String? = "",
     //val Image_Profile: Bitmap,
     val Squatur: String = ""
 

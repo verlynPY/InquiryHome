@@ -52,14 +52,13 @@ class ManageChat(private val fragmentManager: FragmentManager) {
         return liveData
     }
 
-    /*fun Status(Status: String){
+    fun Status(Status: String){
         databaseReference = FirebaseDatabase.getInstance().getReference("users")
-            .child(auth.currentUser!!.uid)
-
+            .child("NP7jQDsG9fcw33p1SHzpRaV0Jqz1")
         val hashMap: HashMap<String, String> = HashMap()
         hashMap.put("Status", Status)
         databaseReference.updateChildren(hashMap as Map<String, Any>)
-    }*/
+    }
 
 
 }

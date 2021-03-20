@@ -2,7 +2,6 @@ package com.example.inquiryhome.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -11,6 +10,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.sp
 import com.example.inquiryhome.MainActivity
 import com.example.inquiryhome.view.Home.HomeDoctorActivity
 import com.example.inquiryhome.view.Home.HomePatientActivity
-import com.example.inquiryhome.view.Login.LoginAcitivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 

@@ -1,11 +1,13 @@
 package com.example.inquiryhome.view.Home
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -26,17 +28,16 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.ui.tooling.preview.Preview
 import com.example.inquiryhome.R
-import com.example.inquiryhome.model.User.UserDoctor
+import com.example.inquiryhome.model.Chat.ManageChat
 import com.example.inquiryhome.model.User.UserPacient
 import com.example.inquiryhome.model.Utilss
 import com.example.inquiryhome.view.Chat.ChatPatientActivity
-import com.example.inquiryhome.view.ChatActivity
 import com.example.inquiryhome.view.MaterialThemeColors
-import com.example.inquiryhome.view.ShowUsers
 import com.example.inquiryhome.viewmodel.MainViewModel
 import com.google.firebase.auth.FirebaseAuth
 
@@ -44,11 +45,15 @@ class HomeDoctorActivity : AppCompatActivity() {
 
     private lateinit var viewmodel: MainViewModel
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var manageChat: ManageChat
+    private lateinit var fragmentManager: FragmentManager
     var result: ArrayList<UserPacient>? = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        CreateNotificationManager()
+        fragmentManager = supportFragmentManager
+        manageChat = ManageChat(fragmentManager = fragmentManager)
         firebaseAuth = FirebaseAuth.getInstance()
         var id = firebaseAuth.currentUser!!.uid
         viewmodel = ViewModelProviders.of(this).get(MainViewModel::class.java)
@@ -110,6 +115,35 @@ class HomeDoctorActivity : AppCompatActivity() {
         })
     }
 
+
+
+    override fun onPause() {
+        super.onPause()
+        manageChat.Status("OfLine")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        manageChat.Status("OnLine")
+    }
+
+    private val NotificationChannel = "com.example.inquiryhome"
+    private val NameChannel = "InquiryHome"
+    private val NotificationId = 0
+
+    private fun CreateNotificationManager(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val Importence = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(NotificationChannel, NameChannel, Importence).apply {
+                description = "New Message"
+            }
+            val notificationManager: NotificationManager =
+                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+
+        }
+    }
+
     @Composable
     fun ShowPatient(context: Context, patient: UserPacient){
         Column(Modifier.padding(2.dp)) {
@@ -126,7 +160,7 @@ class HomeDoctorActivity : AppCompatActivity() {
                                 intent.putExtras(bundle)
                                 context.startActivity(intent)
                             }),
-                    backgroundColor = MaterialTheme.colors.primary
+                backgroundColor = MaterialTheme.colors.primary
             ) {
                 Row(modifier = Modifier
                         .fillMaxWidth()
@@ -152,6 +186,8 @@ class HomeDoctorActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
 }
 

@@ -43,9 +43,9 @@ class MainViewModel: ViewModel() {
         return firebaseData.GetUserInfoDoctor(context, id)
     }
 
-     fun ShowDoctors(){
+     fun ShowDoctors(Speciality: String){
 
-        listDoctor.value = (manageDoctor.GetAllDoctor())
+        listDoctor.value = (manageDoctor.GetAllDoctor(Speciality))
          Thread.sleep(500)
         if(listDoctor.value != null){
             HasValue.value = true

@@ -11,7 +11,7 @@ object MaterialThemeColors {
         primary = Color(0,220,235),
         secondary = Color(0,150,150),
             onPrimary = Color(200,200,200),
-            onSecondary = Color(50,50,50),
+            onSecondary = Color(50,50,50)
     )
     val LigthColor = lightColors(
         primary = Color(0,240,245),

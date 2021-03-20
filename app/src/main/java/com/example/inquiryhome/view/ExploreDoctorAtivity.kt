@@ -54,7 +54,7 @@ class ExploreDoctorAtivity : AppCompatActivity() {
         var bundle = intent.extras
         var Speciality = bundle!!.getCharSequence("Speciality")
         var id = firebaseAuth.currentUser!!.uid
-        viewmodel.ShowDoctors()
+        viewmodel.ShowDoctors(Speciality.toString())
         viewmodel.ShowProfile(this, id).observe(this, Observer { patient ->
         viewmodel.listDoctor.observe(this, Observer {
             for (doctor in it) {

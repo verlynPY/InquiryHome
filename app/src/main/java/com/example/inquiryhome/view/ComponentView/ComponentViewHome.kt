@@ -41,7 +41,8 @@ import com.example.inquiryhome.view.buttonShape
                     val speciality = listOf(
                             "Dentista",
                             "Pediatra",
-                            "Nutriologo"
+                            "Nutriologo",
+                            "General"
                     )
                     val text = remember { mutableStateOf("") }
                     val isOpen = remember { mutableStateOf(false) }

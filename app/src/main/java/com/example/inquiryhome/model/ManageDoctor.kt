@@ -15,12 +15,12 @@ class ManageDoctor {
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
 
-    fun GetAllDoctor(): ArrayList<UserDoctor>{
+    fun GetAllDoctor(Speciality: String): ArrayList<UserDoctor>{
         var liveData = MutableLiveData<List<UserDoctor>>()
         var listdoctor: ArrayList<UserDoctor> = ArrayList()
         auth = FirebaseAuth.getInstance()
         databaseReference = FirebaseDatabase.getInstance().reference
-        databaseReference.child("users")
+        databaseReference.child("users").orderByChild("Speciality").equalTo(Speciality)
                 .addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
